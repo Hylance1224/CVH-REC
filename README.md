@@ -1,14 +1,14 @@
-# **CVH-Rec: A novel method for web API recommendation based on the cross-view HGNNs**
+# **CVH-REC: A novel method for web API recommendation based on the cross-view HGNNs**
 
 This repository provides the dataset, baseline methods, and source code for the paper:
 
-**"CVH-Rec: A novel method for web API recommendation based on the cross-view HGNNs"**
+**"CVH-REC: A novel method for web API recommendation based on the cross-view HGNNs"**
 
 ***
 
 ## 📁 Repository Structure
 
-*   `CVH-Rec/`\
+*   `CVH-REC/`\
     The core implementation of the CVH-Rec method.
 
     *   `Original Dataset/`\
