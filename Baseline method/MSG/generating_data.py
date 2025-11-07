@@ -10,30 +10,13 @@ from nltk.stem import WordNetLemmatizer
 # nltk.download('punkt')
 # nltk.download('wordnet')
 
-# 1. 加载 GloVe 词表
-def load_glove_vocab(glove_path):
-    vocab = set()
-    with open(glove_path, 'r', encoding='latin-1', errors='ignore') as f:
-        for line in f:
-            word = line.strip().split(' ')[0]
-            vocab.add(word)
-    return vocab
-
-# 2. 文本预处理函数
-def preprocess_text(text, glove_vocab):
-    # 转小写
-    text = text.lower()
-
+def preprocess_text(text):
     # 替换常见缩写
     abbreviations = {
         "can't": "can not",
         "won't": "will not",
         "n't": " not",
-        "'re": " are",
-        "'s": " is",
-        "'d": " would",
         "'ll": " will",
-        "'t": " not",
         "'ve": " have",
         "'m": " am"
     }
@@ -53,25 +36,18 @@ def preprocess_text(text, glove_vocab):
     # 词形还原
     lemmatizer = WordNetLemmatizer()
     words = [lemmatizer.lemmatize(w) for w in words]
-
-    # 仅保留 GloVe 中的词
-    words = [w for w in words if w in glove_vocab]
+    if words == []:
+        return ['NULL']
 
     return words
 
-# 新建文件夹（如果不存在）
 output_dir = "data"
 os.makedirs(output_dir, exist_ok=True)
-glove_path = '.vector_cache/glove.6B.200d.txt'
-print("加载 GloVe 词汇表...")
-glove_vocab = load_glove_vocab(glove_path)
-print(f"共加载 GloVe 词数：{len(glove_vocab)}")
-
 # 读取原始数据
-with open("original data/api_id_mapping.json", "r", encoding="utf-8") as f:
+with open("original data/apis.json", "r", encoding="utf-8") as f:
     apis = json.load(f)
 
-with open("original data/shuffle_mashup_details.json", "r", encoding="utf-8") as f:
+with open("original data/mashup_shuffled.json", "r", encoding="utf-8") as f:
     mashups = json.load(f)
 
 # 初始化输出
@@ -95,9 +71,9 @@ for api in apis:
     api_des = api["details"].get("description", "")
     if api_des == "":
         api_des = 'no description available'
-        api_des = preprocess_text(api_des, glove_vocab)
+        api_des = preprocess_text(api_des)
     else:
-        api_des = preprocess_text(api_des, glove_vocab)
+        api_des = preprocess_text(api_des)
     api_description.append(api_des)
 
     # API 类别
@@ -129,9 +105,9 @@ for mashup in mashups:
     mashup_des = mashup.get("description", "")
     if mashup_des == "":
         mashup_des = 'no description available'
-        mashup_des = preprocess_text(mashup_des, glove_vocab)
+        mashup_des = preprocess_text(mashup_des)
     else:
-        mashup_des = preprocess_text(mashup_des, glove_vocab)
+        mashup_des = preprocess_text(mashup_des)
     mashup_description.append(mashup_des)
 
     # 使用的 API

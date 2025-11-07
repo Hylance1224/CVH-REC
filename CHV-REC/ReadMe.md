@@ -297,8 +297,8 @@ Repeat for folds **2–10** by changing the `--dataset` parameter.
 
     python main_text_encoder.py --dataset fold1 --method Random_init  --patience 5 --lr 0.002 --epoch 200
 
-🔁 Cross-Validation.
-[parser.py](..%2FBaseline%20method%2FR2API%2Futility%2Fparser.py)
+🔁 Cross-Validation.&#x20;
+
 Repeat for folds **2–10** by changing the `--dataset` parameter.
 
 ▶️Step 2. **Compute metrics**:
@@ -307,7 +307,7 @@ Repeat for folds **2–10** by changing the `--dataset` parameter.
 
 ## 3. Hyperparameter Settings
 
-The hyperparameters of this project are defined in `utility/parser.py`. Below is part of important hyperparameters:
+The hyperparameters of this project are defined in `utility/parser.py`. Below the hyperparameters and their values:
 
 | Variable name | Description                             | Value |
 | :------------ | :-------------------------------------- | :---- |

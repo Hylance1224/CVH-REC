@@ -89,6 +89,16 @@ def compare_methods_fold_mean(method_a, method_b, folds):
         for metric in metrics:
             a_fold_means = np.array([np.mean([m[idx] for m in mA[metric][fold]]) for fold in folds])
             b_fold_means = np.array([np.mean([m[idx] for m in mB[metric][fold]]) for fold in folds])
+
+            from scipy.stats import normaltest
+
+            diff = a_fold_means - b_fold_means
+            stat, p = normaltest(diff)
+            if p > 0.05:
+                print("差值近似正态，可使用配对 t 检验")
+            else:
+                print("差值显著偏离正态，建议使用非参数检验")
+
             stat, pval = ttest_rel(a_fold_means, b_fold_means)
 
             pval = pval * 16
