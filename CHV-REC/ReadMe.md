@@ -305,20 +305,26 @@ Repeat for folds **2–10** by changing the `--dataset` parameter.
 
     python metrics.py --method Random_init
 
-## 3. Hyperparameter Settings
+## 3. Hyperparameter setting and implementation details
 
-The hyperparameters of this project are defined in `utility/parser.py`. Below the hyperparameters and their values:
+The hyperparameters of this project are defined in `utility/parser.py`. Below is the hyperparameter setting and implementation details.
 
-| Variable name | Description                             | Value |
-| :------------ | :-------------------------------------- | :---- |
-| alpha1        | Mashup behavioral similarity threshold  | 0.6   |
-| alpha2        | Mashup semantic similarity threshold    | 0.6   |
-| alpha3        | Web API behavioral similarity threshold | 0.6   |
-| alpha4        | Web API semantic similarity threshold   | 0.6   |
-| beta          | The weighting of contrastive learning   | 0.1   |
-| regs          | Weight decay                            | 1e-4  |
-| lr            | Inital learning rate                    | 0.002 |
-| batch\_size   | Batch size                              | 512   |
-| epoch         | epoch                                   | 200   |
-| patience      | patience of early stop                  | 5     |
+| Variable name          | Description                             | Setting                                            |
+| :--------------------- | :-------------------------------------- | :------------------------------------------------- |
+| alpha1                 | Mashup behavioral similarity threshold  | 0.6                                                |
+| alpha2                 | Mashup semantic similarity threshold    | 0.6                                                |
+| alpha3                 | Web API behavioral similarity threshold | 0.6                                                |
+| alpha4                 | Web API semantic similarity threshold   | 0.6                                                |
+| beta                   | The weighting of contrastive learning   | 0.1                                                |
+| regs                   | Weight decay                            | 1e-4                                               |
+| lr                     | Inital learning rate                    | 0.002                                              |
+| batch\_size            | Batch size                              | 512                                                |
+| epoch                  | epoch                                   | 200                                                |
+| patience               | patience of early stop                  | 5                                                  |
+| seed                   |                                         | 85                                                 |
+| Early stopping         |                                         | Loss no improvement for 5epochs                    |
+| Hardware               |                                         | NVIDIA RTX4090 24GB, withan 8124M Processor CPU\*2 |
+| Framework              |                                         | PyTorch 2.7, CUDA 12.6                             |
+| Learning rate schedule |                                         | Exponential decay schedule                         |
+| Optimizer              |                                         | Adam                                               |
 
