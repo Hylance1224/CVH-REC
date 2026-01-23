@@ -73,7 +73,7 @@ Each `dataset/foldX/` directory includes:
 
     python main_text_encoder.py --dataset fold1 --method CVH-REC  --patience 5 --lr 0.002 --epoch 200
 
-After training completes, the **recommendation results** for `fold1` will be automatically saved in **JSON format** under the `output/` directory.
+After training completes, the **recommendation results** for `fold1` will be automatically saved in **JSON format** under the ../`output/` directory.
 
 ##### 🔁 Cross-Validation
 
@@ -87,7 +87,7 @@ To perform **10-fold cross-validation**, repeat **Step 1** for each fold by upda
 
 *   `--dataset fold10`
 
-> All other parameters (e.g., learning rate, patience, alpha values, and output folder) can remain unchanged.
+> All other parameters (e.g., learning rate, patience, alpha values) can remain unchanged.
 
 ##### ▶️ Step 2. **Compute evaluation metrics (after all 10 folds are completed)**
 
@@ -97,23 +97,23 @@ Once all recommendation result of **10 folds** generated, run the following comm
 
 > ⚠️ **Important:**\
 > Do **not** run this step until all 10 folds have finished training.\
-> If any fold’s output file is missing, the script will raise an error due to incomplete data.
+> If any fold’s recommendation file is missing, the script will raise an error due to incomplete data.
 >
 > This step calculates the **10-fold average** and **standard deviation** for all evaluation metrics.
 
-##### ▶️ Calculate the Bonferroni-corrected *p*-values and Cohen’s *d* values (CVH-REC vs. R2API)
+##### ▶️ Calculate the *p*-values and Cohen’s *d* values (CVH-REC vs. R2API)
 
 After obtaining the **10-fold cross-validation results of CVH-REC**, follow the steps below to perform the statistical analysis:
 
 1.  **Run the baseline model R2API** and generate its 10-fold recommendation results.
 
-2.  Copy the resulting files of R2API into the current directory’s `output/` folder.
+2.  Copy the resulting files of R2API into the  ../`output/` folder.
 
 3.  Execute the following command to compute the statistical differences between the two methods:
 
         python statistical.py --method1 CVH-REC --method2 R2API
 
-This script will produce the **Bonferroni-corrected *p*-values** and **Cohen’s *d* effect sizes**, which quantify the statistical significance and the magnitude of performance differences between CVH-REC and R2API.
+This script will produce the\*\* *p*-values\*\* and **Cohen’s *d* effect sizes**, which quantify the statistical significance and the magnitude of performance differences between CVH-REC and R2API.
 
 ***
 
@@ -261,7 +261,7 @@ Repeat for folds **2–10** by changing the `--dataset` parameter.
 
     python main.py --dataset fold1 --patience 5 --epoch 200  --lr 0.002 --alpha1 0.6 --alpha2 0.6 --alpha3 0.6 --alpha4 0.6
 
-    python main_semantic.py --dataset fold1 --output output
+    python main_semantic.py --dataset fold1
 
 🔁 Cross-Validation.
 
@@ -277,7 +277,7 @@ Repeat for folds **2–10** by changing the `--dataset` parameter.
 
     python main.py --dataset fold1 --patience 5 --epoch 200 --lr 0.002 --alpha1 0.6 --alpha2 0.6 --alpha3 0.6 --alpha4 0.6
 
-    python main_R2API.py --dataset fold1 --output output
+    python main_R2API.py --dataset fold1
 
 🔁 Cross-Validation.
 
@@ -322,7 +322,7 @@ The hyperparameters of this project are defined in `utility/parser.py`. Below is
 | epoch                  | epoch                                   | 200                                                |
 | patience               | patience of early stop                  | 5                                                  |
 | seed                   |                                         | 85                                                 |
-| Early stopping         |                                         | Loss no improvement for 5epochs                    |
+| Early stopping         |                                         | Loss no improvement for 5 epochs                   |
 | Hardware               |                                         | NVIDIA RTX4090 24GB, withan 8124M Processor CPU\*2 |
 | Framework              |                                         | PyTorch 2.7, CUDA 12.6                             |
 | Learning rate schedule |                                         | Exponential decay schedule                         |

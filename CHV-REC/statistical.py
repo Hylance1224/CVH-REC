@@ -93,15 +93,9 @@ def compare_methods_fold_mean(method_a, method_b, folds):
             from scipy.stats import normaltest
 
             diff = a_fold_means - b_fold_means
-            stat, p = normaltest(diff)
-            if p > 0.05:
-                print("差值近似正态，可使用配对 t 检验")
-            else:
-                print("差值显著偏离正态，建议使用非参数检验")
 
-            stat, pval = ttest_rel(a_fold_means, b_fold_means)
-
-            pval = pval * 16
+            # stat, pval = ttest_rel(a_fold_means, b_fold_means)
+            stat, pval = wilcoxon(a_fold_means, b_fold_means, zero_method="pratt", correction=False)
 
             def cohen(a, b):
                 a = np.array(a)
@@ -117,7 +111,7 @@ def compare_methods_fold_mean(method_a, method_b, folds):
 
             d_val = cohen(a_fold_means, b_fold_means)
             print(
-                f"{metric:<7} {N:<3} Bonferroni-corrected p-value: {pval:.2e} Cohen's d value: {d_val:7.4f}"
+                f"{metric:<7} {N:<3} p-value: {pval:.2e} Cohen's d value: {d_val:7.4f}"
             )
 
 
